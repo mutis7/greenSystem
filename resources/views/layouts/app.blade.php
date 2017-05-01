@@ -8,12 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Green System') }}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -36,7 +37,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Green System') }}
                     </a>
                 </div>
 
@@ -59,6 +60,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                <li><a href="/profile">profile</li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -81,7 +83,9 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
+    <!-- my Scripts -->
+    
     <script src="/js/app.js"></script>
+    <!-- <script src="/js/house.js"></script> -->
 </body>
 </html>

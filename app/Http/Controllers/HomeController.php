@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->role=='admin'){
+            return redirect('/admin');
+        } else {
+            if(Auth::user()->status=='inactive'){
+                //wait for activation
+                return view('user.userInactive');
+            } else {
+                //activated
+            $user = Auth::user();
+            $balance = $user->getUserBalance();
+            // dd($balance);
+                return view('user.userHome',[
+                    
+                    ]);
+            }
+        }
+        
     }
 }

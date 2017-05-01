@@ -52,9 +52,9 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'telephone_number' => 'required|max:10',
-            'location' => 'required|max:255',
-            'house_number' => 'required|max:255',
+            // 'telephone_number' => 'required|max:10',
+            // 'location' => 'required|max:255',
+            // 'house_number' => 'required|max:255',
             'username' => 'required|max:255|unique:users',
         ]);
     }
@@ -69,11 +69,8 @@ class RegisterController extends Controller
     {
         return User::create([
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'telephone_number' => $data['telephone_number'],
+            'last_name' => $data['last_name'],            
             'email' => $data['email'],
-            'location' => $data['location'],
-            'house_number' => $data['house_number'],
             'username' => $data['username'],
             'password' => $data['password'],
         ]);
