@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Telephone;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -52,9 +53,7 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            // 'telephone_number' => 'required|max:10',
-            // 'location' => 'required|max:255',
-            // 'house_number' => 'required|max:255',
+            'telephoneNo' => 'required|max:10',
             'username' => 'required|max:255|unique:users',
         ]);
     }
@@ -67,12 +66,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],            
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'password' => $data['password'],
-        ]);
+        $user = new User;
+        $user->first_name =$data['first_name'];
+        $user->last_name =$data['last_name'];
+        $user->email =$data['email'];
+        $user->username =$data['username'];
+        $user->password =$data['password'];
+        $user->save();
+
+        $userId = User::where('username', $data['username'])->first()->id;
+        $tel = new Telephone;
+        $tel->telephoneNumber = $data['telephoneNo'];
+        $tel->user_id = $userId;
+        $tel->save();
+
+        return $user;
     }
 }

@@ -10,12 +10,11 @@
 
                 <div class="panel-body">
                     
-                     <form class="form-horizontal" role="form" method="POST" action="/employees/{{$employee->id}}">  
-
-                     {{ csrf_field() }}
+                     <form class="form-horizontal" role="form" method="POST" action="{{ url('employees/'.$employee->employee_id) }}">  
+                     {{ csrf_field() }} 
                      {{ method_field('PUT') }}
 
-                        <div class="form-group{{ $errors->has('idNumber') ? ' has-error' : '' }}">
+                     <div class="form-group{{ $errors->has('idNumber') ? ' has-error' : '' }}">
                             <label for="idNumber" class="col-md-4 control-label">National Id Number</label>
                             <div class="col-md-6">
                                 <input id="idNumber" type="text" class="form-control" name="idNumber" value="{{ $employee->idNumber }}" required autofocus>
@@ -53,7 +52,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Email</label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $employee->email }}" required autofocus>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $employee->email }}" autofocus>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -62,14 +61,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('phoneNumber') ? ' has-error' : '' }}">
-                            <label for="phoneNumber" class="col-md-4 control-label">Telephone Number</label>
+                        <div class="form-group{{ $errors->has('telephoneNumber') ? ' has-error' : '' }}">
+                            <label for="telephoneNumber" class="col-md-4 control-label">Telephone Number</label>
                             <div class="col-md-6">
-                                <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" value ="{{ $employee->phoneNumber }}"required>
+                                <input id="telephoneNumber" type="text" class="form-control" name="telephoneNumber" value ="{{ $employee->telephoneNumber }}">
 
-                                @if ($errors->has('phoneNumber'))
+                                @if ($errors->has('telephoneNumber'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('phoneNumber') }}</strong>
+                                        <strong>{{ $errors->first('telephoneNumber') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/profile', 'userController@profile');
-
 Route::get('/home', 'HomeController@index');
 Route::get('/admin', 'AdminController@index' );
 Route::get('/activate', 'AdminController@inactiveUsers');
@@ -28,3 +27,9 @@ Route::resource('/employees', 'EmployeeController');
 Route::resource('/counties', 'CountyController');
 Route::resource('/locations', 'LocationController');
 Route::resource('/houses', 'HouseController');
+Route::resource('/vehicles', 'VehicleController');
+Route::get('/suggestions', 'ComplainController@index');
+Route::post('suggestions/save', 'ComplainController@store');
+Route::get('/useredit/{id}', 'userController@edit');
+Route::post('usersave', 'userController@update');
+Route::post('changepassword', 'userController@updatepassword');

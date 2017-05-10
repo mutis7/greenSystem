@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.adminDashboard')
 
 @section('content')
 <div class="container">
@@ -21,16 +21,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <?php $count= 0; ?>
                         @foreach($employees as $employee)
                             <tr>
-                                <td>{{ $employee->id }}</td>
+                                <td>{{ ++$count }}</td>
                                 <td>{{ $employee->idNumber }}</td>
                                 <td>{{ $employee->firstName }}</td>
                                 <td>{{ $employee->lastName }}</td>
-                                <td>{{ $employee->phoneNumber }}</td>
+                                <td>{{ $employee->telephoneNumber }}</td>
                                 <td>{{ $employee->email }}</td>
-                                <td><a class="btn btn-info btn-sm" href="{{ url('employees/'.$employee->id.'/edit') }}">edit</a></td>
-                                <td><form action="{{ url('employees/'.$employee->id) }}" method="POST" >
+                                <td><a class="btn btn-info btn-sm" href="{{ url('employees/'.$employee->employee_id.'/edit') }}">edit</a></td>
+                                <td><form action="{{ url('employees/'.$employee->employee_id) }}" method="POST" >
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE')}}
                                             <button class="btn btn-danger btn-sm">delete</button>

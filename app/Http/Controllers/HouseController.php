@@ -24,9 +24,15 @@ class HouseController extends Controller
         $counties = County::all();
         $locations = Location::all();
         $houses = House::where('user_id',Auth::user()->id)->paginate(10);
-         return view('house.houses',['houses'=>$houses,
-                                      'counties'=>$counties,
-                                      'locations'=> $locations]);
+        // dd($counties->all(), $locations->all(), $houses->all());
+        return view('user.userHouse1', [
+            'houses'=>$houses,
+            'counties'=>$counties,
+            'locations'=> $locations
+            ]);
+         // return view('house.houses',['houses'=>$houses,
+         //                              'counties'=>$counties,
+         //                              'locations'=> $locations]);
     }
 
     /**
@@ -39,7 +45,7 @@ class HouseController extends Controller
         //
         $counties = County::all();
         $locations = Location::all();
-        return view('house.housecreate',
+        return view('user.housecreate',
             ['counties'=>$counties,
              'locations'=>$locations]);
 
@@ -54,6 +60,12 @@ class HouseController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request,[
+            'location_id'=> 'required|numeric',
+            'house'=> 'required',
+            'user_id'=> 'required|numeric']);
+
         $house = new House;
         $house->location_id = $request->location_id;
         $house->house = $request->house;
@@ -92,7 +104,7 @@ class HouseController extends Controller
         $countyId = $cnty->id;
         $countyName = $cnty->county;
 
-        return view('house.houseedit',
+        return view('user.houseedit',
             ['counties'=>$counties,
              'locations'=>$locations,
              'house'=>$house,
@@ -112,6 +124,11 @@ class HouseController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'location_id'=> 'required|numeric',
+            'house'=> 'required',
+            'user_id'=> 'required|numeric']);
+
         $house = House::findOrFail($id);
         $house->update($request->all());
         return redirect('/houses');

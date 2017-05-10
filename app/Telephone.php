@@ -8,6 +8,7 @@ class Telephone extends Model
 {
     //
 
+	protected $fillable = ['telephoneNumber', 'user_id', 'employee_id'];
     public function user(){
 		return $this->belongsTo('App\User');
 	}

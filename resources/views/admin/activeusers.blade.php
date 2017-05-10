@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.adminDashboard')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>active users</h2></div>
 
@@ -11,22 +11,25 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>email</th>  
+                                <th>#</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Phone number</th> 
+                                
                             </tr>
                         </thead>
                         <tbody>
-                        
+                        <?php $count =0;  ?>
                         @foreach($users as $user)
                             <tr>
-                                <td>{{ $user->id}}</td>
+                                <td>{{++$count}}</td>
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->last_name }}</td>
-                                <td>{{ $user->email }}</td>                           
+                                <td>{{ $user->email }}</td> 
+                                <td>{{ $user->telephoneNumber}}</td>                    
                                 
-                                <td>more</td>
+                                
                             </tr>
                         @endforeach
                         </tbody>

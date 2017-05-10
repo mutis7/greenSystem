@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role=='admin'){
+        if(Auth::user()->role=='admin'){    
             return redirect('/admin');
         } else {
             if(Auth::user()->status=='inactive'){
@@ -35,7 +35,7 @@ class HomeController extends Controller
             $user = Auth::user();
             $balance = $user->getUserBalance();
             // dd($balance);
-                return view('user.userHome',[
+                return view('user.userHome1',[
                     
                     ]);
             }

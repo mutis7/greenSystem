@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.adminDashboard')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>inactive users</h2></div>
 
@@ -12,8 +12,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>first name</th>
-                                <th>last name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>email</th>
                                 <th>status</th>
                             </tr>
