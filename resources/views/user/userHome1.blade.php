@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
                 <div class="row">
-                     <div class="col-md-4">
+                     <div class="col-md-5">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Balances</h4>
@@ -12,34 +12,45 @@
                                 <p class="category">my houses</p>
                             </div>
                             <div class="content">
-                                <div>
-                                    house 1: <b>$0.00</b><br><hr>
-                                    house 2: <b>$0.00</b><br><hr>
-                                    house 3: <b>$0.00</b><br>
+                            
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>House Name</th>
+                                    <th>Monthly Fee</th>
+                                    <th>collection day</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($houses as $house)
+                                   <tr>
+                                    <td>{{$house->house}}</td>
+                                    <td>{{$house->monthlyfee}}</td>
+                                    <td>{{ $house->collection_day}}</td>
+                                   </tr>
+                                @endforeach
+                                </tbody>
 
-                                </div>
+                            </table>
+                                
+                            
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">collection day</h4>
-                            </div>
-                            <div class="content">
-                                <h3>Thursday</h3>
-                                <p>12/03/2017</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
+                    
+                    <div class="col-md-7">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">notification</h4>
                             </div>
                             <div class="content">
-                                <p>no pending notifications</p>
+                                @foreach($pendings as $pending)
+                                <div>
+                                    {{ $pending->house}}: is waiting approval from the admin<br>
+                                </div>
+                            @endforeach
+                            <p>no more pending notifications</p>
                             </div>
                         </div>
                     </div>

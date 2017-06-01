@@ -1,6 +1,7 @@
 @extends('layouts.userdashboard')
 
 @section('content')
+
            <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                         <div class="card">
@@ -30,4 +31,10 @@
                         </div>
                     </div>
                 </div>
+
+ @if(session('message'))
+    <script type="text/javascript">
+        alert('{{ Session::get('message')}}');
+    </script>
+@endif
 @endsection

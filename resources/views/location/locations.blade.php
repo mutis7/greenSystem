@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>Locations</h2></div>
 
@@ -11,9 +11,10 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th> Id</th>
-                                <th>county Id</th>
+                                <th>#</th>
+                                <th>county Name</th>
                                 <th>location name</th>
+                                <th>Collection Day</th>
 
                             </tr>
                         </thead>
@@ -21,8 +22,9 @@
                         @foreach($locations as $location)
                             <tr>
                                 <td>{{ $location->id }}</td>
-                                <td>{{ $location->county_id }}</td>
+                                <td>{{ $location->county }}</td>
                                 <td>{{ $location->location }}</td>
+                                <td>{{ $location->collection_day }}</td>
                                 
                                 <td><a class="btn btn-info btn-sm" href="{{ url('locations/'.$location->id.'/edit') }}">edit</a></td>
                                 <td><form action="{{ url('locations/'.$location->id) }}" method="POST" >

@@ -19,6 +19,7 @@ class AddEmployeeTable extends Migration
             $table->string('firstName');
             $table->string('lastName');
             $table->string('email');
+            $table->smallInteger('assigned')->default(0);
             $table->timestamps();
          });   
     }

@@ -69,10 +69,7 @@ class User extends Authenticatable
         return $balance;
     }
 
-    //one user can make many payments
-     public function payments(){
-        return $this->hasMany('App\Payment');
-    }
+    
 
     //one user can make many complaints
      public function complaints(){
@@ -80,8 +77,8 @@ class User extends Authenticatable
     }
 
     //one user can have many phone numbers
-     public function telephones(){
-        return $this->hasMany('App\Telephone');
+     public function telephone(){
+        return $this->hasOne('App\Telephone');
     }
 
     //one user can have many houses 

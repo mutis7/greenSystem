@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.adminDashboard')
 
 @section('content')
 <div class="container">
@@ -13,13 +13,25 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
 
-                        <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-                            <label for="user_id" class="col-md-4 control-label">User Id</label>
+                        <div class="form-group{{ $errors->has('house') ? ' has-error' : '' }}">
+                            <label for="house" class="col-md-4 control-label">House Name</label>
                             <div class="col-md-6">
-                                <input id="user_id" type="text" class="form-control" name="user_id" value="{{ $payment->user_id }}" required autofocus>
-                                @if ($errors->has('user_id'))
+                                <input id="house" type="text" class="form-control" name="house" value="{{ $payment->house }}" required autofocus>
+                                @if ($errors->has('house'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('user_id') }}</strong>
+                                        <strong>{{ $errors->first('house') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Payers Name</label>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $payment->payer }}" required autofocus>
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -36,6 +48,7 @@
                                     </span>
                                 @endif
                             </div>
+                            <input type="hidden" name="oldAmount" value="{{ $payment->amount }}">
                         </div>                        
 
                         <div class="form-group">

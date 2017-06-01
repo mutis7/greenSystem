@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>{{ Auth::user()->username }}</h2></div>
+                <div class="panel-heading"><h2>temp urls</h2></div>
 
                 <div class="panel-body">
                     You are logged in Admin!<br>
@@ -19,6 +19,7 @@
                     <a href="{{url('/counties')}}">counties</a><br>
                     <a href="{{url('/locations/create')}}">add location</a><br>
                     <a href="{{url('/locations')}}">locations</a><br>
+                    <a href="{{url('/readcomplaints')}}">read complaints</a><br>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>
                 add a new location</h2></div>
@@ -30,6 +30,17 @@
                                 @if ($errors->has('location'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('location') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('collection_day') ? ' has-error' : '' }}">
+                            <label for="collection_day" class="col-md-4 control-label">Collection Day</label>
+                            <div class="col-md-6">
+                                <input id="collection_day" type="text" class="form-control" name="collection_day" value="{{ old('collection_day') }}" required autofocus>
+                                @if ($errors->has('collection_day'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('collection_day') }}</strong>
                                     </span>
                                 @endif
                             </div>

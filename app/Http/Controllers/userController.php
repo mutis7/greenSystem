@@ -34,7 +34,7 @@ class userController extends Controller
     		'first_name'=> 'required',
     		'last_name'=> 'required',
     		'email'=> 'required',
-    		'telephoneNumber'=> 'required',
+    		'telephoneNumber'=> 'required|numeric',
     		'id'=>'required|numeric',
     		'username'=>'required'
     		]);
@@ -46,7 +46,7 @@ class userController extends Controller
     	$tel = Telephone::where('user_id', $request->id);
     	$tel->update([
     		'telephoneNumber'=> $request->telephoneNumber]);
-    	return back();
+    	return back()->with(['status'=>'suceesifully changed the profile']);
     	
     }
     public function updatepassword(Request $request){
@@ -60,7 +60,7 @@ class userController extends Controller
 	$customerror = "password did not match one in our records";
     	if(Hash::check($request->oldpassword, Auth::user()->password)){
     		Auth::user()->update(['password'=>$request->password]);
-    		$status="success";
+    		$status="password successifully changed";
     		$customerror = "";
     	} 
     	

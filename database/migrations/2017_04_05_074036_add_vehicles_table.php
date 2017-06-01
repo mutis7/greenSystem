@@ -19,6 +19,7 @@ class AddVehiclesTable extends Migration
             $table->string('type');
             $table->string('description');
             $table->string('status');
+            $table->smallInteger('assigned')->default(0);
             $table->timestamps();
 
         });

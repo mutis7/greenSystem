@@ -17,6 +17,7 @@ class AddComplaintTable extends Migration
             $table->increments('id');
             $table->text('complain');
             $table->integer('user_id')->unsigned();
+            $table->smallInteger('read')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

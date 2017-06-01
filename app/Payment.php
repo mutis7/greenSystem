@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     //what will be filled in the database
-   protected $fillable =['user_id', 'amount'];
+   protected $fillable =['house_id', 'payer', 'amount'];
 
 
-	public function user(){
-		return $this->belongsTo('App\User');
+	public function house(){
+		return $this->belongsTo('App\House');
 	}
 
 }

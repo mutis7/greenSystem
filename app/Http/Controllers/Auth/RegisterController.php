@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\House;
 use App\Telephone;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -53,8 +54,10 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'telephoneNo' => 'required|max:10',
+            'telephoneNo' => 'required|numeric',
             'username' => 'required|max:255|unique:users',
+            'location_id'=> 'required|numeric',
+            'house'=> 'required'
         ]);
     }
 
@@ -79,6 +82,12 @@ class RegisterController extends Controller
         $tel->telephoneNumber = $data['telephoneNo'];
         $tel->user_id = $userId;
         $tel->save();
+
+        $house = new House;
+        $house->user_id = $userId;
+        $house->location_id = $data['location_id'];
+        $house->house = $data['house'];
+        $house->save();
 
         return $user;
     }

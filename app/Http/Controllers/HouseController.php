@@ -17,19 +17,19 @@ class HouseController extends Controller
 
     public function __construct(){
         $this->middleware('user');
+
     }
     public function index()
     {
         //
-        $counties = County::all();
-        $locations = Location::all();
-        $houses = House::where('user_id',Auth::user()->id)->paginate(10);
-        // dd($counties->all(), $locations->all(), $houses->all());
+        $houses = House::where('user_id',Auth::user()->id)
+            ->leftJoin('locations', 'locations.id', 'houses.location_id')
+            ->leftJoin('counties', 'counties.id', 'locations.county_id')
+            ->select('houses.id', 'houses.house', 'houses.monthlyfee', 'houses.balance', 'locations.location', 'locations.collection_day',
+                'counties.county')
+            ->get();
         return view('user.userHouse1', [
-            'houses'=>$houses,
-            'counties'=>$counties,
-            'locations'=> $locations
-            ]);
+            'houses'=>$houses]);
          // return view('house.houses',['houses'=>$houses,
          //                              'counties'=>$counties,
          //                              'locations'=> $locations]);
@@ -147,5 +147,6 @@ class HouseController extends Controller
         $house-> delete();
         return redirect('/houses');
     }
+    
     
 }

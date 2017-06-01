@@ -16,11 +16,10 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->float('amount');
-            $table->integer('user_id')->unsigned();
             $table->integer('house_id')->unsigned();
+            $table->string('payer');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
 
         });

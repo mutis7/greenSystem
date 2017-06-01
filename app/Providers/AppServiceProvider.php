@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Providers;
+use App\Complaint;
+use App\House;
 
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        View::share('unread', Complaint::where('read', 0)->count());
+        View::share('pending', House::where('status', 'pending')->count());
     }
 
     /**

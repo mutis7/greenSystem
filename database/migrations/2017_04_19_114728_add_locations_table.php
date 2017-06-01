@@ -17,6 +17,7 @@ class AddLocationsTable extends Migration
             $table->increments('id');
             $table->string('location');
             $table->integer('county_id')->unsigned();
+            $table->string('collection_day');
             $table->timestamps();
 
             $table->foreign('county_id')->references('id')->on('counties')->onDelete('cascade');

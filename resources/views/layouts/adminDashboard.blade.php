@@ -22,6 +22,12 @@
 
     <!-- Custom Theme Style -->
     <link href="{{asset('adminAssets/build/css/custom.min.css')}}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{{asset('adminAssets/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('adminAssets/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('adminAssets/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('adminAssets/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('adminAssets/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -78,16 +84,28 @@
                         </li>
                       <li><a>Houses<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li><a href="#">View Houses</a></li>
-                             <li><a href="#">Activate Houses</a></li>                           
+                            <li><a href="{{url('allhouses')}}">Active Houses</a></li>
+                             <li><a href="{{url('activatehouses')}}">Dormant Houses</a></li>                           
                           </ul>
                         </li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-tasks"></i> Assign Employees </a></li>
+                  <li><a><i class="fa fa-tasks"></i> Assign Employees<span class="fa fa-chevron-down"></span> </a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{url('jobs/create')}}">Create job</a></li>
+                        <li><a href="{{url('jobs')}}">View jobs</a></li>
+                        <li><a href="{{url('exceptionjobs')}}">View exceptions</a></li>
+                    </ul>
+                  </li>
+                  <li><a>Payments<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li><a href="{{url('/payments/create')}}">manual payments</a></li>
+                            <li><a href="{{url('/payments')}}">View Payments</a></li>
+                          </ul>
+                        </li>
                   <li><a><i class="fa fa-list"></i> Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">A</a></li>
+                      <li><a href="{{url('readcomplaints')}}">read complaints</a></li>
                       <li><a href="#">B</a></li>
                       <li><a href="#">C</a></li>
                       <li><a href="#">D</a></li>
@@ -113,18 +131,31 @@
                     {{ Auth::user()->username }} <span class=" fa fa-angle-down"></span></a>                  
                   
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="#"> Profile</a></li>
-
-                    <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{url('adminedit')}}"> Profile</a></li>
+                    <li>
+                       <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                           Logout
+                        </a>
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                         {{ csrf_field() }}
+                        </form>
+                       </li>
                   </ul>
                 </li>
                 <li role="presentation" class="dropdown">
-                  <a href="#" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <span class="fa fa-envelope-o"></span> Notifications 
-                    <span class="badge bg-green">6</span>
+                  <a href="{{url('unreadcomplaints')}}" class="info-number">
+                    <span class="fa fa-envelope-o"></span> complaints 
+                    @if($unread)
+                    <span class="badge bg-green">{{$unread}} </span>                
+                    @endif
                   </a>
                 </li>
+                <li><a href="{{url('activatehouses')}}" class="info-number">
+                <span class="fa fa-houe"></span>pending Houses
+                @if($pending)
+                    <span class="badge bg-green">{{$pending}} </span>                
+                    @endif
+                </a></li>
                 
               </ul>
             </nav>
@@ -160,5 +191,18 @@
   
     <!-- Custom Theme Scripts -->
     <script src="{{asset('adminAssets/build/js/custom.min.js')}}"></script>
+    <!-- Datatables -->
+    <script src="{{ asset('adminAssets/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
   </body>
 </html>

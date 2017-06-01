@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Payment;
-use App\User;
+use App\House;
 
 class PaymentsController extends Controller
 {
@@ -21,8 +21,10 @@ class PaymentsController extends Controller
     public function index()
     {
         //get all the records of the payments
-        $payments = Payment::paginate(15);
-        // return $payments;
+        $payments = Payment::leftJoin('houses', 'houses.id', 'payments.house_id')
+         ->select('payments.id', 'payments.amount', 'payments.created_at', 'payments.payer', 'houses.house')
+         ->paginate(25);
+                
 
         return view('payment.payments', [
             'payments'=> $payments
@@ -36,11 +38,8 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        $users = User::where('status','active')
-        ->where('role','user')->get();
-        return view('payment.paymentcreate',[
-           'users'=>$users
-            ]);
+        
+        return view('payment.paymentcreate');
     }
 
     /**
@@ -51,25 +50,33 @@ class PaymentsController extends Controller
      */
     public function store(Request $request)
     {
-        //get user from the table who meets the form submitted conditions
-        $user = User::where([
-            ['last_name',"$request->last_name"],
-            ['first_name', "$request->first_name"],
-            ['email',"$request->email"],
-            ])->first();
-        
-        $status = $user->status;
-        if($status=="inactive"){
-            echo "the user is not activated";
-
+        $this->validate($request,[
+            'house' => 'required',
+            'name' => 'required',
+            'amount' => 'required|numeric']);
+        $house = House::where('house', $request->house)->first();
+        if($house==null){
+            return back()->with('message', 'house '.$request->house.' does not exist try again');
+        } else if($house->status=='pending'){
+            return back()->with('message', 'house '.$request->house.' has not been activated by the admin');   
         } else{
-
-            $userId = $user->id;
-            $payment = new Payment;
+            $payment = new Payment;            
+            $payment->house_id = House::where('house', $request->house)->first()->id;
             $payment->amount = $request->amount;
-            $payment->user_id = $userId;
+            $payment->payer = $request->name;
             $payment->save();
+            //update house balance
+            $balance = House::where('house', $request->house)->first()->balance - $payment->amount;
+            House::where('house', $request->house)->update(['balance'=> $balance]);
+            //print a receipt
+            return view('payment.receipt',['payment'=>$payment]);
+
+            return back()->with('message', 'payment successifully added'); 
         }
+        
+
+
+        
 
          return redirect('/payments');
         
@@ -97,7 +104,11 @@ class PaymentsController extends Controller
     public function edit($id)
     {
         //
-        $payment = Payment::findOrFail($id);
+       
+        $payment = Payment::findOrFail($id)
+            ->leftJoin('houses', 'houses.id', 'payments.house_id')
+            ->select('payments.id', 'payments.amount', 'payments.created_at', 'payments.payer', 'houses.house')->first();
+            
         return view('payment.paymentedit', ['payment'=>$payment]);
     }
 
@@ -111,11 +122,31 @@ class PaymentsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $payment  = Payment::findOrFail($id);
+         $this->validate($request,[
+            'house' => 'required',
+            'name' => 'required',
+            'amount' => 'required|numeric',
+            'oldAmount'=> 'required|numeric']);
 
-        $payment->update($request->all());
+        $house = House::where('house', $request->house)->first();
+        if($house==null){
+            return back()->with('message', 'house '.$request->house.' does not exist try again');
+        } else if($house->status=='pending'){
+            return back()->with('message', 'house '.$request->house.' has not been activated by the admin');   
+        } else{
+            $payment = Payment::findOrFail($id);;            
+            $payment->house_id = House::where('house', $request->house)->first()->id;
+            $payment->amount = $request->amount;
+            $payment->payer = $request->name;
+            $payment->save();
+            //update house balance
+            $balance = House::where('house', $request->house)->first()->balance - $payment->amount +$request->oldAmount;
+            House::where('house', $request->house)->update(['balance'=> $balance]);
+            //print a receipt
+            return view('payment.receipt',['payment'=>$payment]);
 
-        return redirect('/payments');
+            return back()->with('message', 'payment successifully added'); 
+        }
     }
 
     /**
@@ -127,6 +158,7 @@ class PaymentsController extends Controller
     public function destroy($id)
     {
         //
+        
         $payment  = Payment::findOrFail($id);
         $payment->delete();
         return redirect('/payments');

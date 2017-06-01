@@ -79,6 +79,40 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group {{ $errors->has('county_id') ? ' has-error' : '' }}">
+                            <label for="county_id" class="col-md-4 control-label">county Name</label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="county">
+                                    <option selected="selected"> select county</option>
+                                    @foreach($counties as $county)
+                                    <option value="{{$county->id}}"> {{$county->county}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('location_id') ? ' has-error' : '' }}">
+                            <label for="location_id" class="col-md-4 control-label">location Name</label>
+                            <div class="col-md-6">
+                                <select name="location_id" class="form-control" id="location">
+                                    <option selected="selected"> select location</option>
+                                    @foreach($locations as $location)
+                                    <option value="{{$location->id}}" class="{{$location->county_id}}"> {{$location->location}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('house') ? ' has-error' : '' }}">
+                            <label for="house" class="col-md-4 control-label">house Name</label>
+                            <div class="col-md-6">
+                                <input id="house" type="text" class="form-control" name="house" value="{{ old('house') }}" required autofocus>
+                                @if ($errors->has('house'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('house') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -114,4 +148,13 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#county").change(function(event){
+              var county = $("#county").val();
+              $("#location>*").hide();
+              $("."+county).show();
+        }); 
+    });
+</script>
 @endsection

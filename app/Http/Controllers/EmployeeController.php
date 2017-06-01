@@ -122,9 +122,9 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->update();
         
-        $tel = Telephone::where('employee_id', '=', $id)->get();
-        $tel->telephoneNumber = $request->telephoneNumber;
-        $tel->update(); //this update method is not working  
+        $tel = DB::table('telephones')
+            ->where('employee_id', '=', $id)
+            ->update(['telephoneNumber' => $request->telephoneNumber]);            
         
         return redirect('/employees');
 
@@ -141,7 +141,7 @@ class EmployeeController extends Controller
         //
         $employee = Employee::findOrFail($id);
         $employee->delete();
-        return redirect('/employees');
+        return redirect('/employees')->with(['status'=>'suceessifully deleted the record']);
     }
 
    

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
 	
-	protected $fillable =['county_id', 'location'];
+	protected $fillable =['county_id', 'location', 'collection_day'];
 	//one location belongs to one county
     public function county(){
         return $this->belongsTo('App\County');
