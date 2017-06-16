@@ -9,10 +9,10 @@ class SmsMessages{
 protected $username   = "franckmutis";
 protected $apikey     = "272318f9149ce6bc2b8235880733c69891ebb943335af4409277dfae2cc4d038";
     //
-public function send()
+public function send($message, $recipient)
 {
-$message    = "the demo works fine";
-$recipients = +254706126006;
+$message    = $message;
+$recipients = $recipient;
 	$gateway    = new AfricasTalkingGateway($this->username, $this->apikey, "sandbox" );
 // NOTE: If connecting to the sandbox, please add the sandbox flag to the constructor:
 /*************************************************************************************

@@ -8,14 +8,16 @@
                 <div class="panel-heading"><h2>payments records</h2></div>
 
                 <div class="panel-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="payments_table">
                         <thead>
                             <tr>
                                 <th>payment id</th>
                                 <th>Amount</th>
                                 <th>house</th>
                                 <th>paid at</th>
-                                <th>paid by</th>                                
+                                <th>paid by</th> 
+                                <th></th>   
+                                <th></th>                            
                             </tr>
                         </thead>
                         <tbody>
@@ -45,4 +47,48 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+     // $("#payments_table").DataTable();
+     <!-- Datatables -->
+
+    /*Display contacts_list table*/
+    $(document).ready(function() {
+        var handleDataTableButtons = function() {
+            if ($("#payments_table").length) {
+                $("#payments_table").DataTable({
+                    autoWidth:false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function() {
+            "use strict";
+            return {
+                init: function() {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        TableManageButtons.init();
+    });
+
+</script>
 @endsection

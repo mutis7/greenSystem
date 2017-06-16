@@ -8,13 +8,15 @@
                 <div class="panel-heading"><h2>Vehicles details</h2></div>
 
                 <div class="panel-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="tablevehicle">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>type</th>
                                 <th>description</th>
                                 <th>status</th>
+                                <th></th>
+                                <th></th>
 
                             </tr>
                         </thead>
@@ -43,4 +45,48 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+     // $("#tablevehicle").DataTable();
+     <!-- Datatables -->
+
+    /*Display contacts_list table*/
+    $(document).ready(function() {
+        var handleDataTableButtons = function() {
+            if ($("#tablevehicle").length) {
+                $("#tablevehicle").DataTable({
+                    autoWidth:false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function() {
+            "use strict";
+            return {
+                init: function() {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        TableManageButtons.init();
+    });
+
+</script>
 @endsection

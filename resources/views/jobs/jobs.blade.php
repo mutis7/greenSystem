@@ -8,7 +8,7 @@
                 <div class="panel-heading"><h2>currently ongoing Jobs details</h2></div>
 
                 <div class="panel-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="tableongoingjobs">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -19,6 +19,9 @@
                                 <th>Employee 4</th> 
                                 <th>Location</th>
                                 <th>date</th> 
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +43,7 @@
                                     <a href="{{url('completedjob/'.$job->id)}}" class="btn btn-sm btn-success">completed</a>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-danger">exceptions</a>
+                                    <a href="{{url('exjobs/'.$job->id)}}" class="btn btn-sm btn-danger">exceptions</a>
                                 </td>
                                 
                             </tr>
@@ -53,4 +56,48 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+     // $("#tableongoingjobs").DataTable();
+     <!-- Datatables -->
+
+    /*Display contacts_list table*/
+    $(document).ready(function() {
+        var handleDataTableButtons = function() {
+            if ($("#tableongoingjobs").length) {
+                $("#tableongoingjobs").DataTable({
+                    autoWidth:false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function() {
+            "use strict";
+            return {
+                init: function() {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        TableManageButtons.init();
+    });
+
+</script>
 @endsection

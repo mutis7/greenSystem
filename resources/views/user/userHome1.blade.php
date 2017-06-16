@@ -7,7 +7,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Balances</h4>
-                                <H1>$0.00</H1>
+                                <H1>${{$mybalance}}</H1>
 
                                 <p class="category">my houses</p>
                             </div>

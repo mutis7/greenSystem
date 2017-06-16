@@ -8,7 +8,7 @@
                 <div class="panel-heading"><h2>Employees details</h2></div>
 
                 <div class="panel-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="tableemployees">
                         <thead>
                             <tr>
                                 <th>employee Id</th>
@@ -17,6 +17,8 @@
                                 <th>last name</th>
                                 <th>phone number</th>
                                 <th>email</th>
+                                <th></th>
+                                <th></th>
 
                             </tr>
                         </thead>
@@ -47,9 +49,54 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+     // $("#tableemployees").DataTable();
+     <!-- Datatables -->
+
+    /*Display contacts_list table*/
+    $(document).ready(function() {
+        var handleDataTableButtons = function() {
+            if ($("#tableemployees").length) {
+                $("#tableemployees").DataTable({
+                    autoWidth:false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function() {
+            "use strict";
+            return {
+                init: function() {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        TableManageButtons.init();
+    });
+
+</script>
 @if(session('status'))
  <script type="text/javascript">
      alert('{{ Session::get('status')}}');
  </script>                                
 @endif
+
 @endsection

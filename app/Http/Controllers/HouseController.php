@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\House;
 use App\Location;
 use App\County;
+use App\Payment;
+use App\MessageNotification\SmsMessages;
+use Illuminate\Support\Facades\DB;
 use Auth;
+
 class HouseController extends Controller
 {
     /**
@@ -148,5 +152,47 @@ class HouseController extends Controller
         return redirect('/houses');
     }
     
-    
+    public function housepay($id){
+        $house = House::findOrFail($id);
+
+        return view('payment.userpaymentform', ['house'=>$house]);
+    }
+
+    public function houses(){
+
+        $houses = House::where(['user_id'=> Auth::user()->id],
+            ['status'=> 'active'])->get();
+        
+        return view('payment.userhouses', ['houses'=>$houses]);
+    }
+    public function payhouse(){
+        $res = DB::table('temppayments')->where('id', 1)->first();
+       
+        $amount = $res->amount;
+        $house_id = $res->house_id;
+        $house = $res->house;
+        DB::table('temppayments')->where('house', $house)->delete();
+       
+        //api validation
+
+        //end of api validation
+
+        $payment = new Payment;
+        $payment->amount = $amount;
+        $payment->house_id = $house_id;
+        $payment->payer = Auth::user()->username;
+        $payment->save();
+        $house = House::where('id', $house_id)->first()->house;
+        $phone = House::where('houses.id', $house_id)->leftJoin('telephones', 'telephones.user_id',
+            'houses.user_id')->first()->telephoneNumber;
+      
+        House::where('id', $house_id)->first()->decrement('balance', $amount);
+        
+        //show that payment was successifully paid
+        //alert using text as proof
+            $message = new SmsMessages();
+            $message->send('transaction number: '.$payment->id.'. Amount '.$payment->amount.' has been paid for house '.$house, $phone);
+        //return back with a sucess message
+        return redirect('payforhouses')->with('message', 'payment successifully added');
+    }
 }

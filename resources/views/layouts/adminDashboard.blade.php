@@ -28,6 +28,8 @@
     <link href="{{asset('adminAssets/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('adminAssets/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('adminAssets/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
+    <script src="{{ asset('adminAssets/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -85,7 +87,8 @@
                       <li><a>Houses<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li><a href="{{url('allhouses')}}">Active Houses</a></li>
-                             <li><a href="{{url('activatehouses')}}">Dormant Houses</a></li>                           
+                             <li><a href="{{url('activatehouses')}}">Dormant Houses</a></li>
+                             <li><a href="{{url('debthouses')}}">Houses with debts</a></li>                           
                           </ul>
                         </li>
                     </ul>
@@ -93,7 +96,8 @@
                   <li><a><i class="fa fa-tasks"></i> Assign Employees<span class="fa fa-chevron-down"></span> </a>
                     <ul class="nav child_menu">
                         <li><a href="{{url('jobs/create')}}">Create job</a></li>
-                        <li><a href="{{url('jobs')}}">View jobs</a></li>
+                        <li><a href="{{url('jobs')}}">View ongoing jobs</a></li>
+                        <li><a href="{{url('completedjobs')}}">View completed jobs</a></li>
                         <li><a href="{{url('exceptionjobs')}}">View exceptions</a></li>
                     </ul>
                   </li>
@@ -103,13 +107,7 @@
                             <li><a href="{{url('/payments')}}">View Payments</a></li>
                           </ul>
                         </li>
-                  <li><a><i class="fa fa-list"></i> Reports <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('readcomplaints')}}">read complaints</a></li>
-                      <li><a href="#">B</a></li>
-                      <li><a href="#">C</a></li>
-                      <li><a href="#">D</a></li>
-                      <li><a href="#">E</a></li>
+                  <li><a href="{{url('readcomplaints')}}">read complaints</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -178,7 +176,7 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ asset('adminAssets/jquery/dist/jquery.min.js')}}"></script>
+    
     <!-- Bootstrap -->
     <script src="{{ asset('adminAssets/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     
@@ -192,7 +190,7 @@
     <!-- Custom Theme Scripts -->
     <script src="{{asset('adminAssets/build/js/custom.min.js')}}"></script>
     <!-- Datatables -->
-    <script src="{{ asset('adminAssets/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    
     <script src="{{ asset('adminAssets/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{ asset('adminAssets/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
     <script src="{{ asset('adminAssets/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
@@ -204,5 +202,8 @@
     <script src="{{ asset('adminAssets/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('adminAssets/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
     <script src="{{ asset('adminAssets/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/pdfmake/build/pdfmake.min.js')}}"></script>
+    <script src="{{ asset('adminAssets/pdfmake/build/vfs_fonts.js')}}"></script>
   </body>
 </html>

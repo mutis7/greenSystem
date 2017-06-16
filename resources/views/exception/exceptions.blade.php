@@ -14,6 +14,10 @@
             </div>
             <div class="panel-body">
                 {{ $exceptionJob->description }}
+            </div>
+            <div class="panel-footer" style="height: 45px;">
+               <span class="pull-right"> contact user using &nbsp; 
+               <a href="{{url('genemail/'.$exceptionJob->id)}}" class="btn btn-sm btn-primary"> email</a>          
             </div>            
         </div>
     </div>

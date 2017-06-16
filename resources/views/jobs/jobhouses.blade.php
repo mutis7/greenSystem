@@ -46,6 +46,47 @@
                 </div>
             </div>
             <script type="text/javascript">
-              $("#jobhouses").DataTable();
-            </script>
+     // $("#tableongoingjobs").DataTable();
+     <!-- Datatables -->
+
+    /*Display contacts_list table*/
+    $(document).ready(function() {
+        var handleDataTableButtons = function() {
+            if ($("#jobhouses").length) {
+                $("#jobhouses").DataTable({
+                    autoWidth:false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function() {
+            "use strict";
+            return {
+                init: function() {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        TableManageButtons.init();
+    });
+
+</script>
 @endsection

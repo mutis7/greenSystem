@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Payment;
 use App\House;
-
+use App\MessageNotification\SmsMessages;
 class PaymentsController extends Controller
 {
     /**
@@ -68,17 +68,17 @@ class PaymentsController extends Controller
             //update house balance
             $balance = House::where('house', $request->house)->first()->balance - $payment->amount;
             House::where('house', $request->house)->update(['balance'=> $balance]);
-            //print a receipt
-            return view('payment.receipt',['payment'=>$payment]);
+
+            //get the telephone number
+            $tel = House::where('houses.id', $payment->house_id)->leftJoin('telephones', 'telephones.user_id', 'houses.user_id')->first()->telephoneNumber;
+            //text messages serve as receipts
+            $message = new SmsMessages();
+            $message->send('Green System has received '.$payment->amount.' for house '.$request->house.'. It has been paid by '.$payment->payer.' and the new balance is '.$balance, $tel);
 
             return back()->with('message', 'payment successifully added'); 
         }
         
 
-
-        
-
-         return redirect('/payments');
         
                
 
@@ -143,7 +143,8 @@ class PaymentsController extends Controller
             $balance = House::where('house', $request->house)->first()->balance - $payment->amount +$request->oldAmount;
             House::where('house', $request->house)->update(['balance'=> $balance]);
             //print a receipt
-            return view('payment.receipt',['payment'=>$payment]);
+            $message = new SmsMessages();
+            $message->send('Green System has received '.$payment->amount.' for house '.$request->house.'. It has been paid by '.$payment->payer.' and the new balance is '.$balance, $tel);
 
             return back()->with('message', 'payment successifully added'); 
         }

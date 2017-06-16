@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class AdminController extends Controller
 {
     public function __construct(){
@@ -75,7 +76,17 @@ class AdminController extends Controller
         DB::table('houses')->where('id', $request->id)->update(
             ['monthlyfee' => $request->monthlyfee,
              'status'=> 'active',
-             'activated_at'=> Carbon::now()]);
+             'activated_at'=> Carbon::now()]); 
+        $house = DB::table('houses')->where('houses.id', $request->id)
+            ->leftJoin('users', 'users.id', 'houses.user_id')
+            ->leftJoin('telephones', 'users.id', 'telephones.user_id')
+            ->select('telephones.telephoneNumber', 'houses.house')
+            ->first();
+            
+              $message = new SmsMessages();
+              $message->send('house '.$house->house.' has been activated', $house->telephoneNumber); 
+    
+
         return redirect('/allhouses');
     }
 
@@ -117,11 +128,16 @@ class AdminController extends Controller
             'error'=>$customerror]);
     }
 
-    public function sendSms()
-    {
-        $message = new SmsMessages();
-        $message->send();
-        dd('here');
+    public function debthouses(){
+        $houses = House::where('balance','>',0)
+            ->leftJoin('users', 'users.id', 'houses.user_id')
+            ->leftJoin('telephones', 'telephones.user_id', 'users.id')
+            ->leftJoin('locations', 'locations.id', 'houses.location_id')
+            ->select('houses.house', 'locations.location', 'users.email', 'telephones.telephoneNumber', 'houses.balance')
+            ->get();
+
+            return view('house.debthouses',['houses'=>$houses]);
     }
-    
+
+   
 }

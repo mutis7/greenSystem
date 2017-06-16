@@ -63,7 +63,7 @@
                         <div class="form-group{{ $errors->has('phoneNumber') ? ' has-error' : '' }}">
                             <label for="phoneNumber" class="col-md-4 control-label">Telephone Number</label>
                             <div class="col-md-6">
-                                <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" value="{{ old('phoneNumber') }}" required>
+                                <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" value="{{ old('phoneNumber') }}" required placeholder="07XXXXXXXX">
 
                                 @if ($errors->has('phoneNumber'))
                                     <span class="help-block">

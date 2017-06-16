@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ url('payforhouses') }}">
                         <i class="pe-7s-wallet"></i>
                         <p>Payments</p>
                     </a>

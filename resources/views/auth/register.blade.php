@@ -56,7 +56,7 @@
                             <label for="telephoneNo" class="col-md-4 control-label">Phone Number</label>
 
                             <div class="col-md-6">
-                                <input id="telephoneNo" type="number" class="form-control" name="telephoneNo" value="{{ old('telephoneNo') }}" required>
+                                <input id="telephoneNo" type="text" class="form-control" name="telephoneNo" value="{{ old('telephoneNo') }}" required placeholder="07XXXXXXXX">
 
                                 @if ($errors->has('telephoneNo'))
                                     <span class="help-block">

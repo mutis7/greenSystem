@@ -25,8 +25,8 @@ class ExceptionJobController extends Controller
         $exceptionJobs = ExceptionJob::leftJoin('houses', 'houses.id', 'exception_jobs.house_id')
             ->leftJoin('jobs', 'jobs.id', 'exception_jobs.job_id')
             ->leftJoin('locations', 'jobs.location_id', 'locations.id')
-            ->select('houses.house', 'exception_jobs.description', 'exception_jobs.created_at', 'locations.location')
-            ->paginate(20);
+            ->select('houses.house', 'exception_jobs.description', 'exception_jobs.created_at', 'locations.location', 'houses.id')
+            ->paginate(5);
             // dd($exceptionJobs);
             return view('exception.exceptions', ['exceptionJobs'=>$exceptionJobs]);
     }

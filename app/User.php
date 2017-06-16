@@ -40,36 +40,7 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
-   
-
-    public function setUserBalance(){
-
-        //1. get the time the user registered
-        //2. get the time now
-        //3. get the difference in months
-        //4. mutiply the time with the amount per month
-        //5. get the total amount the user has ever paid
-        //6. subtract and the answer is the balace 
-        //7. for now assume the monthly fee is 300
-        $registered = $this->attributes['created_at'];
-        $registered = new Carbon($registered);
-        $now = Carbon::now();
-        $months = $now->diffInMonths($registered);
-        $expenses = $months*300.00;
-        $amount = Payment::where('user_id', $this->id)->sum('amount');
-        $balance = $amount - $expenses;
-        return $balance;
-        // dd($balance);
-
-
-    }
-
-    public function getUserBalance(){
-       $balance = $this->setUserBalance();
-        return $balance;
-    }
-
-    
+      
 
     //one user can make many complaints
      public function complaints(){

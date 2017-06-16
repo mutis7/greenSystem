@@ -40,6 +40,25 @@ class JobController extends Controller
           
              
     }
+        public function completedJobs()
+    {
+        //used alias when joining to more than one table
+        $jobs = DB::table('jobs')->where('jobs.status', 'complete')
+            ->leftJoin('vehicles', 'jobs.vehicle_id', 'vehicles.id')
+            ->leftJoin('employees as emp1', 'jobs.employee1_id', 'emp1.id')
+            ->leftJoin('employees as emp2', 'jobs.employee2_id', 'emp2.id')
+            ->leftJoin('employees as emp3', 'jobs.employee3_id', 'emp3.id')
+            ->leftJoin('employees as emp4', 'jobs.employee4_id', 'emp4.id')
+            ->leftJoin('locations', 'jobs.location_id', 'locations.id')
+            ->select('jobs.id', 'vehicles.description as vehicle', 'emp1.firstName as emp1FirstName', 'emp1.lastName as emp1LastName', 'emp2.firstName as emp2FirstName', 'emp2.lastName as emp2LastName', 'emp3.firstName as emp3FirstName', 'emp3.lastName as emp3LastName', 'emp4.firstName as emp4FirstName', 'emp4.lastName as emp4LastName', 'locations.location', 'jobs.created_at')
+            ->get();
+            // dd($jobs);
+
+
+            return view('jobs.jobscompleted',['jobs'=>$jobs]);
+          
+             
+    }
 
     /**
      * Show the form for creating a new resource.

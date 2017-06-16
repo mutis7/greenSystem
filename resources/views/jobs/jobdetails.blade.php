@@ -131,7 +131,6 @@
               </div>
               <div class="clearfix"></div>
               <a class="btn btn-info" href="{{ url('jobs/'.$job->id.'/edit') }}">edit</a>
-              <a href="{{url('completedjob/'.$job->id)}}" class="btn btn-success">completed</a>
               <a href="{{url('exjobs/'.$job->id)}}" class="btn btn-primary">exceptions</a>
               <a href="{{url('jobhouses/'.$job->id)}}" class="btn btn-primary">houses</a>
     </div>
