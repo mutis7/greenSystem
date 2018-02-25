@@ -11,8 +11,8 @@ use Auth;
 
 class PaypalRepository{
 
-    protected $client_id = 'ASJ_aoTiY6_9DUbB_MxNzdwuJGTX7G9KON8B0LN6NHk6wZbVSM-Gyb0w-ny9nKQPy0TpIxlxcZ1Oxb46';
-    protected $secret = 'EJpRzgGIrAImsbR8uyIO4fgTQLX8CHj458db8g1xsHk7lMurZ7G2S7E5ptz1hv-O0ZTY9Rxpj4SkcmVr';
+    protected $client_id = env('PAYPAL_CLIENT_ID', '');
+    protected $secret =  env('PAYPAL_CLIENT_SECRET', '');
     protected $return_url;
     protected $cancel_url;
     protected $url_head = "https://api.sandbox.paypal.com/v1/payments/payment";
